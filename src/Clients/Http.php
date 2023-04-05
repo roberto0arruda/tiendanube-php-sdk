@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tiendanube\Clients;
 
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Utils;
@@ -169,8 +170,7 @@ class Http
      * @param string            $dataType The data type of the request
      *
      * @return HttpResponse
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     * @throws \Tiendanube\Exception\UninitializedContextException
+     * @throws \Tiendanube\Exception\UninitializedContextException|GuzzleException
      */
     protected function request(
         string $path,
@@ -241,7 +241,7 @@ class Http
 
             $requestStartMs = $this->currentTimeMillis();
 
-            $response = HttpResponse::fromResponse($client->sendRequest($request));
+            $response = HttpResponse::fromResponse($client->send($request));
 
             $responseHeaders = $response->getHeaders();
 
