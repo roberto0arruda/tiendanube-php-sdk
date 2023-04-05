@@ -1,4 +1,7 @@
 <?php
+
 namespace TiendaNube\API;
 
-class NotFoundException extends Exception {}
+class NotFoundException extends Exception
+{
+}

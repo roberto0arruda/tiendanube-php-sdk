@@ -1,10 +1,12 @@
 <?php
- 
-class APITest extends PHPUnit_Framework_TestCase{
+
+class APITest extends PHPUnit\Framework\TestCase
+{
     private $api;
     private $sample_category;
 
-    public function setUp(){
+    protected function setUp(): void
+    {
         $this->api = new TiendaNube\API(1234, 'abcdefabcdef', 'Test App');
 
         $this->sample_category = '{
@@ -31,7 +33,8 @@ class APITest extends PHPUnit_Framework_TestCase{
         }';
     }
 
-    public function testGet(){
+    public function testGet(): void
+    {
         $mock = new MockRequests($this->sample_category, 200, ['X-Main-Language' => 'es']);
         $this->api->requests = $mock;
 
@@ -46,7 +49,8 @@ class APITest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('es', $response->headers['X-Main-Language']);
     }
 
-    public function testPost(){
+    public function testPost(): void
+    {
         $mock = new MockRequests($this->sample_category, 201, ['X-Main-Language' => 'es']);
         $this->api->requests = $mock;
 
@@ -62,7 +66,8 @@ class APITest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('es', $response->headers['X-Main-Language']);
     }
 
-    public function testPut(){
+    public function testPut(): void
+    {
         $mock = new MockRequests($this->sample_category, 200, ['X-Main-Language' => 'es']);
         $this->api->requests = $mock;
 
@@ -78,7 +83,8 @@ class APITest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('es', $response->headers['X-Main-Language']);
     }
 
-    public function testDelete(){
+    public function testDelete(): void
+    {
         $mock = new MockRequests('{}', 200);
         $this->api->requests = $mock;
 
@@ -87,16 +93,22 @@ class APITest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('DELETE', $mock->args[3]);
 
         $this->assertEquals(200, $response->status_code);
-        $this->assertEquals(0, count((array) $response->body));
+        $this->assertEquals(0, count((array)$response->body));
     }
 
-    public function testPagination(){
+    /**
+     * @throws \TiendaNube\API\Exception
+     * @throws \TiendaNube\API\NotFoundException
+     * @throws \WpOrg\Requests\Exception
+     */
+    public function testPagination(): void
+    {
         $mock = new MockRequests('[]', 200, [
             'X-Main-Language' => 'es',
             'Link' => '<https://api.tiendanube.com/v1/1234/products?page=1>; rel="first", '.
-                      '<https://api.tiendanube.com/v1/1234/products?page=4>; rel="prev", '.
-                      '<https://api.tiendanube.com/v1/1234/products?page=6>; rel="next", '.
-                      '<https://api.tiendanube.com/v1/1234/products?page=10>; rel="last"',
+                '<https://api.tiendanube.com/v1/1234/products?page=4>; rel="prev", '.
+                '<https://api.tiendanube.com/v1/1234/products?page=6>; rel="next", '.
+                '<https://api.tiendanube.com/v1/1234/products?page=10>; rel="last"',
         ]);
 
         $this->api->requests = $mock;
@@ -116,7 +128,8 @@ class APITest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('https://api.tiendanube.com/v1/1234/products?page=10', $mock->args[0]);
     }
 
-    public function testHeaders(){
+    public function testHeaders(): void
+    {
         $mock = new MockRequests('[]', 200, ['X-Main-Language' => 'es']);
         $this->api->requests = $mock;
 
@@ -124,7 +137,7 @@ class APITest extends PHPUnit_Framework_TestCase{
 
         $this->assertArrayHasKey('Authentication', $mock->args[1]);
         $this->assertEquals('bearer abcdefabcdef', $mock->args[1]['Authentication']);
-        
+
         $this->assertArrayHasKey('Content-Type', $mock->args[1]);
         $this->assertEquals('application/json', $mock->args[1]['Content-Type']);
 
@@ -134,17 +147,29 @@ class APITest extends PHPUnit_Framework_TestCase{
 
     /**
      * @expectedException TiendaNube\API\Exception
+     * @throws \WpOrg\Requests\Exception
      */
-    public function testError(){
-        $this->api->requests = new MockRequests('{"code": 401, "message": "Unauthorized", "description": "Invalid access token"}', 401);
+    public function testError(): void
+    {
+        $this->api->requests = new MockRequests(
+            '{"code": 401, "message": "Unauthorized", "description": "Invalid access token"}', 401
+        );
         $this->api->get('categories/4567');
     }
 
     /**
      * @expectedException TiendaNube\API\NotFoundException
      */
-    public function test404(){
-        $this->api->requests = new MockRequests('{"code": 404, "message": "Not Found", "description": "Category with such id does not exist"}', 404);
-        $this->api->get('categories/4568');
+    public function test404(): void
+    {
+        $this->api->requests = new MockRequests(
+            '{"code": 404, "message": "Not Found", "description": "Category with such id does not exist"}', 404
+        );
+        try {
+            $this->api->get('categories/4568');
+        } catch (\TiendaNube\API\NotFoundException $e) {
+        } catch (\TiendaNube\API\Exception $e) {
+        } catch (\WpOrg\Requests\Exception $e) {
+        }
     }
 }

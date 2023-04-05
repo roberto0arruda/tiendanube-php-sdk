@@ -1,16 +1,24 @@
 <?php
- 
-class AuthTest extends PHPUnit_Framework_TestCase{
+
+class AuthTest extends \PHPUnit\Framework\TestCase
+{
     private $auth;
 
-    public function setUp(){
+    public function setUp(): void
+    {
         $this->auth = new TiendaNube\Auth(1, 'qwertyuiop');
     }
 
-    public function testRequestAccessTokenSuccess(){
-        $mock = new MockRequests('{"access_token":"abcdefabcdef","token_type":"bearer","scope":"write_products,write_customers","user_id":"123"}');
+    /**
+     * @throws \TiendaNube\Auth\Exception
+     */
+    public function testRequestAccessTokenSuccess(): void
+    {
+        $mock = new MockRequests(
+            '{"access_token":"abcdefabcdef","token_type":"bearer","scope":"write_products,write_customers","user_id":"123"}'
+        );
         $this->auth->requests = $mock;
-        
+
         $store_info = $this->auth->request_access_token('abc123');
 
         //Request
@@ -39,7 +47,8 @@ class AuthTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals('write_products,write_customers', $store_info['scope']);
     }
 
-    public function testLoginUrls(){
+    public function testLoginUrls(): void
+    {
         $this->assertEquals('https://www.nuvemshop.com.br/apps/1/authorize', $this->auth->login_url_brazil());
         $this->assertEquals('https://www.tiendanube.com/apps/1/authorize', $this->auth->login_url_spanish());
     }
@@ -47,15 +56,19 @@ class AuthTest extends PHPUnit_Framework_TestCase{
     /**
      * @expectedException TiendaNube\Auth\Exception
      */
-    public function testRequestAccessTokenExpired(){
-        $this->auth->requests = new MockRequests('{"error":"invalid_grant","error_description":"The authorization code has expired"}');
+    public function testRequestAccessTokenExpired(): void
+    {
+        $this->auth->requests = new MockRequests(
+            '{"error":"invalid_grant","error_description":"The authorization code has expired"}'
+        );
         $this->auth->request_access_token('abc123');
     }
 
     /**
      * @expectedException TiendaNube\Auth\Exception
      */
-    public function testRequestAccessTokenError(){
+    public function testRequestAccessTokenError(): void
+    {
         $this->auth->requests = new MockRequests('{}', 500);
         $this->auth->request_access_token('abc123');
     }
