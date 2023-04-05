@@ -35,7 +35,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tiendanube\\": "tests/"
+      "Tiendanube\\Test\\": "tests/"
     }
   },
   "scripts": {

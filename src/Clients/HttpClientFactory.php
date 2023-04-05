@@ -12,7 +12,7 @@ class HttpClientFactory
     /**
      * @codeCoverageIgnore This is mocked for tests
      */
-    public function client(): ClientInterface
+    public function client(): Client
     {
         return new Client();
     }
