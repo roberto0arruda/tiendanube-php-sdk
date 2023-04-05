@@ -37,6 +37,9 @@ abstract class Base
     private array $setProps;
     protected Session $session;
 
+    /**
+     * @throws RestResourceException
+     */
     public function __construct(Session $session, array $fromData = null)
     {
         if (Context::$apiVersion !== static::$apiVersion) {
@@ -305,7 +308,7 @@ abstract class Base
         return array_key_exists($property, static::$hasOne);
     }
 
-    private static function setInstanceData(self &$instance, array $data): void
+    private static function setInstanceData(self $instance, array $data): void
     {
         $instance->originalState = [];
 
@@ -314,10 +317,7 @@ abstract class Base
                 $attrList = [];
                 if (!empty($value)) {
                     foreach ($value as $elementData) {
-                        array_push(
-                            $attrList,
-                            static::$hasMany[$prop]::createInstance($elementData, $instance->session)
-                        );
+                        $attrList[] = static::$hasMany[$prop]::createInstance($elementData, $instance->session);
                     }
                 }
 
@@ -347,10 +347,8 @@ abstract class Base
                     if (count($recursiveDiff)) {
                         $diff[$key1] = $recursiveDiff;
                     }
-                } else {
-                    if ($value1 != $data2[$key1]) {
-                        $diff[$key1] = $value1;
-                    }
+                } elseif ($value1 !== $data2[$key1]) {
+                    $diff[$key1] = $value1;
                 }
             } else {
                 $diff[$key1] = $value1;
@@ -385,15 +383,16 @@ abstract class Base
     }
 
     /**
-     * @param array|null|Base $attribute
+     * @param  array|null|Base  $attribute
+     * @param  bool  $saving
      * @return array|null
      */
-    private function subAttributeToArray($attribute, bool $saving)
+    private function subAttributeToArray($attribute, bool $saving): ?array
     {
         if (is_array($attribute)) {
             $subAttribute = static::createInstance($attribute, $this->session);
             $retVal = $subAttribute->toArray($saving);
-        } elseif (empty($attribute)) {
+        } elseif ($attribute === null) {
             $retVal = $attribute;
         } else {
             $retVal = $attribute->toArray($saving);
