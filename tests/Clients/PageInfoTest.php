@@ -1,9 +1,9 @@
 <?php
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
+use Tiendanube\Test\BaseTestCase;
 use Tiendanube\Clients\PageInfo;
-use Tiendanube\BaseTestCase;
 
 class PageInfoTest extends BaseTestCase
 {

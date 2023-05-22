@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\MockObject\MockObject;
+use Tiendanube\Clients\HttpHeaders;
+use Tiendanube\Test\BaseTestCase;
 use Tiendanube\Clients\Http;
 use Tiendanube\Context;
-use Tiendanube\BaseTestCase;
-use Tiendanube\HttpResponseMatcher;
-use Tiendanube\LogMock;
+use Tiendanube\Test\HttpResponseMatcher;
+use Tiendanube\Test\LogMock;
 
 final class HttpTest extends BaseTestCase
 {

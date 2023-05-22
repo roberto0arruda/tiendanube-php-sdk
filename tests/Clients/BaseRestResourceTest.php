@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
 use Tiendanube\Auth\Session;
+use Tiendanube\Test\BaseTestCase;
 use Tiendanube\Context;
 use Tiendanube\Exception\RestResourceException;
 use Tiendanube\Exception\RestResourceRequestException;
-use Tiendanube\BaseTestCase;
 
 final class BaseRestResourceTest extends BaseTestCase
 {

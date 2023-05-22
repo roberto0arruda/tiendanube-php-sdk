@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use PHPUnit\Framework\Constraint\Constraint;
 use Tiendanube\Clients\HttpResponse;
@@ -10,11 +10,11 @@ use Tiendanube\Clients\HttpResponse;
 class HttpResponseMatcher extends Constraint
 {
     /** @var int */
-    private $statusCode = 200;
+    private int $statusCode = 200;
     /** @var array */
-    private $headers = [];
+    private array $headers = [];
     /** @var array|null */
-    private $decodedBody = null;
+    private ?array $decodedBody = null;
 
     /**
      * HttpResponseMatcher constructor.

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Webhooks;
+namespace Tiendanube\Test\Clients;
 
 use Tiendanube\Clients\HttpHeaders;
-use Tiendanube\BaseTestCase;
+use Tiendanube\Test\BaseTestCase;
 
 final class HttpHeadersTest extends BaseTestCase
 {

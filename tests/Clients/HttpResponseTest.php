@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
 use JsonException;
 use Tiendanube\Clients\HttpResponse;
-use Tiendanube\BaseTestCase;
+use Tiendanube\Test\BaseTestCase;
 
 final class HttpResponseTest extends BaseTestCase
 {

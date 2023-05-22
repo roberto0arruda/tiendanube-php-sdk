@@ -2,25 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Tiendanube\Clients\HttpClientFactory;
+use Tiendanube\Context;
+use Tiendanube\Test\Clients\MockRequest;
 use Tiendanube\Exception\HttpRequestException;
-use Tiendanube\Clients\MockRequest;
 
 define('RUNNING_TIENDANUBE_TESTS', 1);
 
 class BaseTestCase extends TestCase
 {
     /** @var string */
-    protected $domain = 'api.tiendanube.com';
+    protected string $domain = 'api.tiendanube.com';
     /** @var string */
-    protected $storeId = '1';
+    protected string $storeId = '1';
     /** @var string */
-    protected $version;
+    protected string $version;
 
     public function setUp(): void
     {
@@ -49,6 +50,7 @@ class BaseTestCase extends TestCase
      * @param string|null       $error      The cURL error message to return
      *
      * @return array
+     * @throws \JsonException
      */
     protected function buildMockHttpResponse(
         int $statusCode = null,
@@ -57,7 +59,7 @@ class BaseTestCase extends TestCase
         string $error = null
     ): array {
         if ($body && !is_string($body)) {
-            $body = json_encode($body);
+            $body = json_encode($body, JSON_THROW_ON_ERROR);
         }
 
         return [

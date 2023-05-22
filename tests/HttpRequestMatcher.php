@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use PHPUnit\Framework\Constraint\Constraint;
 use Psr\Http\Message\RequestInterface;
@@ -10,19 +10,19 @@ class HttpRequestMatcher extends Constraint
     /** @var string */
     private $url;
     /** @var string */
-    private $method;
+    private string $method;
     /** @var string */
-    private $userAgent;
+    private string $userAgent;
     /** @var array */
-    private $headers = [];
+    private array $headers = [];
     /** @var string|null */
-    private $body = null;
+    private ?string $body = null;
     /** @var bool */
-    private $allowOtherHeaders = true;
+    private bool $allowOtherHeaders = true;
     /** @var mixed */
     private $bodyDiff;
     /** @var bool */
-    private $identicalBody;
+    private bool $identicalBody;
 
     /**
      * HttpRequestMatcher constructor.

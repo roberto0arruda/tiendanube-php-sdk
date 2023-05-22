@@ -2,15 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Webhooks;
+namespace Tiendanube\Test\Webhooks;
 
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
+use Tiendanube\Test\BaseTestCase;
 use Tiendanube\Clients\HttpHeaders;
 use Tiendanube\Exception\InvalidWebhookException;
 use Tiendanube\Exception\MissingWebhookHandlerException;
-use Tiendanube\BaseTestCase;
+use Tiendanube\Webhooks\Events;
+use Tiendanube\Webhooks\Handler;
+use Tiendanube\Webhooks\Registry;
 
 final class RegistryTest extends BaseTestCase
 {

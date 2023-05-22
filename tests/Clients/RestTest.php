@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
+use Tiendanube\Clients\RestResponse;
+use Tiendanube\Test\BaseTestCase;
 use Tiendanube\Clients\Rest;
 use Tiendanube\Context;
-use Tiendanube\BaseTestCase;
-use Tiendanube\HttpResponseMatcher;
+use Tiendanube\Test\HttpResponseMatcher;
 
 class RestTest extends BaseTestCase
 {

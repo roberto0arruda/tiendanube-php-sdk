@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use Psr\Log\LogLevel;
 use ReflectionClass;
 use Tiendanube\Auth\Scopes;
+use Tiendanube\Context;
 
 final class ContextTest extends BaseTestCase
 {

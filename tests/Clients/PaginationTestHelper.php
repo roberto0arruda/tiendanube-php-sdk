@@ -1,17 +1,18 @@
 <?php
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
 use Tiendanube\Context;
 
 trait PaginationTestHelper
 {
     /** @var string */
-    protected $domain = 'api.tiendanube.com';
+    protected string $domain = 'api.tiendanube.com';
     /** @var string */
     protected $store_id = '1';
 
     /**
+     * @param string $storeId
      * @param string $path Rest resource. e.g. `products`
      * @param string $queryString Query string `e.g. "per_page=10&fields=test1%2Ctest2"`
      *

@@ -6,12 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Rest\Adminv1;
+namespace Tiendanube\Test\Rest\Adminv1;
 
 use Tiendanube\Auth\Session;
+use Tiendanube\Rest\Adminv1\Webhook;
+use Tiendanube\Test\BaseTestCase;
+use Tiendanube\Test\Clients\MockRequest;
 use Tiendanube\Context;
-use Tiendanube\BaseTestCase;
-use Tiendanube\Clients\MockRequest;
 use Tiendanube\Webhooks\Events;
 
 final class Webhookv1Test extends BaseTestCase
@@ -32,32 +33,28 @@ final class Webhookv1Test extends BaseTestCase
     {
         $this->mockTransportRequests([
             new MockRequest(
-                $this->buildMockHttpResponse(200, json_encode(
-                    [
-                        "webhook" => [
-                            "id" => 123,
-                            "address" => "https://www.test.com/webhook",
-                            "event" => Events::CATEGORY_CREATED,
-                            "created_at" => "2023-02-04T23:53:43-03:00",
-                            "updated_at" => "2023-02-04T23:53:43-03:00",
-                        ],
-                    ]
-                )),
+                $this->buildMockHttpResponse(200, json_encode([
+                    "webhook" => [
+                        "id" => 123,
+                        "address" => "https://www.test.com/webhook",
+                        "event" => Events::CATEGORY_CREATED,
+                        "created_at" => "2023-02-04T23:53:43-03:00",
+                        "updated_at" => "2023-02-04T23:53:43-03:00",
+                    ],
+                ], JSON_THROW_ON_ERROR)),
                 "https://api.tiendanube.com/v1/1/webhooks",
                 "POST",
                 null,
                 [
                     "X-Tiendanube-Access-Token: my_test_token",
                 ],
-                json_encode(
-                    [
-                        "webhook" => [
-                            "address" => "https://www.test.com/webhook",
-                            "topic" => Events::CATEGORY_CREATED,
-                            "format" => "json",
-                        ],
-                    ]
-                ),
+                json_encode([
+                    "webhook" => [
+                        "address" => "https://www.test.com/webhook",
+                        "topic" => Events::CATEGORY_CREATED,
+                        "format" => "json",
+                    ],
+                ], JSON_THROW_ON_ERROR),
             ),
         ]);
 

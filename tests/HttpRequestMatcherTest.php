@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;

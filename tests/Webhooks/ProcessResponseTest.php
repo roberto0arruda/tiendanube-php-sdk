@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Webhooks;
+namespace Tiendanube\Test\Webhooks;
 
-use Tiendanube\BaseTestCase;
+use Tiendanube\Test\BaseTestCase;
+use Tiendanube\Webhooks\ProcessResponse;
 
 final class ProcessResponseTest extends BaseTestCase
 {

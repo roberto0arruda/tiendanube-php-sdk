@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Auth;
+namespace Tiendanube\Test\Auth;
 
-use Tiendanube\Context;
-use Tiendanube\BaseTestCase;
+use Tiendanube\Test\BaseTestCase;
+use Tiendanube\Test\Context;
 
 final class SessionTest extends BaseTestCase
 {

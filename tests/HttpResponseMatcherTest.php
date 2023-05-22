@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 use PHPUnit\Framework\TestCase;
 use Tiendanube\Clients\HttpResponse;
@@ -10,7 +10,7 @@ use Tiendanube\Clients\HttpResponse;
 class HttpResponseMatcherTest extends TestCase
 {
     /** @var array */
-    private $successResponse = [
+    private array $successResponse = [
         'products' => [
             'title' => 'Test Product',
             'amount' => 1,

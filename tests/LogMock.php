@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiendanube;
+namespace Tiendanube\Test;
 
 /**
  * Used for testing purposes.
@@ -55,10 +55,10 @@ namespace Tiendanube;
 class LogMock
 {
     /** @var array */
-    public $records = [];
+    public array $records = [];
 
     /** @var array */
-    public $recordsByLevel = [];
+    public array $recordsByLevel = [];
 
     /**
      * @inheritdoc

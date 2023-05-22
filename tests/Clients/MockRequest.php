@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tiendanube\Clients;
+namespace Tiendanube\Test\Clients;
 
 final class MockRequest
 {
