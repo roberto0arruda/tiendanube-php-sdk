@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Tiendanube\Test\Auth;
 
+use Tiendanube\Auth\Scopes;
+use Tiendanube\Auth\Session;
 use Tiendanube\Test\BaseTestCase;
-use Tiendanube\Test\Context;
+use Tiendanube\Context;
 
 final class SessionTest extends BaseTestCase
 {

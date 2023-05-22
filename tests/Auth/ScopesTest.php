@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tiendanube\Test\Auth;
 
-use Tiendanube\Test\Auth\Scopes;
+use Tiendanube\Auth\Scopes;
 use Tiendanube\Test\BaseTestCase;
 
 final class ScopesTest extends BaseTestCase
