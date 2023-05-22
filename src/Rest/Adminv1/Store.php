@@ -83,7 +83,7 @@ class Store extends Base
         $result = parent::baseFind(
             $session,
             $urlIds,
-            $params,
+            $params
         );
         return !empty($result) ? $result[0] : null;
     }

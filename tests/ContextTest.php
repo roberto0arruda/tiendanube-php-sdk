@@ -38,7 +38,7 @@ final class ContextTest extends BaseTestCase
             'my_different_api_secret_key',
             'www.my-super-different-app.com',
             'My Super App (support@my-super-app.com)',
-            ['read_products', 'read_orders'],
+            ['read_products', 'read_orders']
         );
 
         $this->assertEquals('my_different_api_key', Context::$apiKey);

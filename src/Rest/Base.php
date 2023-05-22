@@ -81,7 +81,7 @@ abstract class Base
 
     public function __get(string $name)
     {
-        return array_key_exists($name, $this->setProps) ? $this->setProps[$name] : null;
+        return $this->setProps[$name] ?? null;
     }
 
     public function __set(string $name, $value): void
@@ -274,10 +274,10 @@ abstract class Base
         if (!empty($body)) {
             if (array_key_exists(0, $body)) {
                 foreach ($body as $entry) {
-                    array_push($objects, self::createInstance($entry, $session));
+                    $objects[] = self::createInstance($entry, $session);
                 }
             } else {
-                array_push($objects, self::createInstance($body, $session));
+                $objects[] = self::createInstance($body, $session);
             }
         }
 
